@@ -16,7 +16,6 @@ return {
     'saghen/blink.cmp',
   },
   config = function()
-    local vim = vim
     -- Brief aside: **What is LSP?**
     --
     -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -118,14 +117,14 @@ return {
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer = event.buf,
-            group = highlight_augroup,
+            buffer   = event.buf,
+            group    = highlight_augroup,
             callback = vim.lsp.buf.document_highlight,
           })
 
           vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            buffer = event.buf,
-            group = highlight_augroup,
+            buffer   = event.buf,
+            group    = highlight_augroup,
             callback = vim.lsp.buf.clear_references,
           })
 
@@ -137,6 +136,50 @@ return {
             end,
           })
         end
+
+        local function keymap(lhs, rhs, opts, mode)
+          mode = mode or 'n'
+          ---@cast opts vim.keymap.set.Opts
+          opts = type(opts) == 'string' and { desc = opts } or opts
+          opts.buffer = bufnr
+          vim.keymap.set(mode, lhs, rhs, opts)
+        end
+
+        if client:supports_method 'textDocument/codeAction' then
+          require('LightBulb').attach_lightbulb(bufnr, client)
+
+          keymap('gra', function()
+            require('tiny-code-action').code_action()
+          end, 'vim.lsp.buf.code_action()', { 'n', 'x' })
+        end
+
+        -- vim.lsp.document_color.enable(true, bufnr)
+        -- if client:supports_method 'textDocument/documentColor' then
+        --   keymap('grc', function()
+        --     vim.lsp.document_color.color_presentation()
+        --   end, 'vim.lsp.document_color.color_presentation()', { 'n', 'x' })
+        -- end
+
+        -- if client:supports_method 'textDocument/references' then
+        --   keymap('grr', '<cmd>FzfLua lsp_references<cr>', 'vim.lsp.buf.references()')
+        -- end
+
+        if client:supports_method 'textDocument/typeDefinition' then
+          keymap('gy', '<cmd>FzfLua lsp_typedefs<cr>', 'Go to type definition')
+        end
+
+        if client:supports_method 'textDocument/documentSymbol' then
+          keymap('<leader>fs', '<cmd>FzfLua lsp_document_symbols<cr>', 'Document symbols')
+        end
+
+        -- if client:supports_method 'textDocument/definition' then
+        --   keymap('gd', function()
+        --     require('fzf-lua').lsp_definitions { jump1 = true }
+        --   end, 'Go to definition')
+        --   keymap('gD', function()
+        --     require('fzf-lua').lsp_definitions { jump1 = false }
+        --   end, 'Peek definition')
+        -- end
 
         -- The following code creates a keymap to toggle inlay hints in your
         -- code, if the language server you are using supports them
@@ -159,9 +202,9 @@ return {
       signs = vim.g.have_nerd_font and {
         text = {
           [vim.diagnostic.severity.ERROR] = '󰅚 ',
-          [vim.diagnostic.severity.WARN] = '󰀪 ',
-          [vim.diagnostic.severity.INFO] = '󰋽 ',
-          [vim.diagnostic.severity.HINT] = '󰌶 ',
+          [vim.diagnostic.severity.WARN]  = '󰀪 ',
+          [vim.diagnostic.severity.INFO]  = '󰋽 ',
+          [vim.diagnostic.severity.HINT]  = '󰌶 ',
         },
       } or {},
       virtual_text = {
@@ -171,9 +214,9 @@ return {
         format = function(diagnostic)
           local diagnostic_message = {
             [vim.diagnostic.severity.ERROR] = diagnostic.message,
-            [vim.diagnostic.severity.WARN] = diagnostic.message,
-            [vim.diagnostic.severity.INFO] = diagnostic.message,
-            [vim.diagnostic.severity.HINT] = diagnostic.message,
+            [vim.diagnostic.severity.WARN]  = diagnostic.message,
+            [vim.diagnostic.severity.INFO]  = diagnostic.message,
+            [vim.diagnostic.severity.HINT]  = diagnostic.message,
           }
           return diagnostic_message[diagnostic.severity]
         end,
@@ -202,7 +245,7 @@ return {
         python = {
           analysis = {
             autoImportCompletions = true,
-            typeCheckingMode = 'standard',
+            typeCheckingMode      = 'standard',
           },
         },
       },

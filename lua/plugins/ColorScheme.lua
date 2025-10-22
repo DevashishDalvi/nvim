@@ -1,14 +1,13 @@
 return {
   {
     'vague-theme/vague.nvim',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy     = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other plugins
     config = function()
       -- NOTE: you do not need to call setup if you don't want to.
       require('vague').setup {
         -- optional configuration here
       }
-      vim.cmd 'colorscheme vague'
     end,
   },
   {
@@ -17,17 +16,17 @@ return {
     priority = 1000,
     config = function()
       vim.g.gruvbox_material_transparent_background = 1
-      vim.g.gruvbox_material_foreground = 'mix'
-      vim.g.gruvbox_material_background = 'hard'
-      vim.g.gruvbox_material_ui_contrast = 'high'
-      vim.g.gruvbox_material_float_style = 'bright'
-      vim.g.gruvbox_material_statusline_style = 'mix' -- Options: "original", "material", "mix", "afterglow"
-      vim.g.gruvbox_material_cursor = 'auto'
+      vim.g.gruvbox_material_foreground             = 'mix'
+      vim.g.gruvbox_material_background             = 'hard'
+      vim.g.gruvbox_material_ui_contrast            = 'high'
+      vim.g.gruvbox_material_float_style            = 'bright'
+      vim.g.gruvbox_material_statusline_style       = 'mix' -- Options: "original", "material", "mix", "afterglow"
+      vim.g.gruvbox_material_cursor                 = 'auto'
 
       -- vim.g.gruvbox_material_colors_override = { bg0 = '#16181A' } -- #0e1010
       -- vim.g.gruvbox_material_better_performance = 1
 
-      -- vim.cmd.colorscheme("gruvbox-material")
+      vim.cmd.colorscheme 'gruvbox-material'
 
       -- Custom statusline highlights
       -- vim.api.nvim_set_hl(0, "StatusLine", {
@@ -46,77 +45,77 @@ return {
   {
     'catppuccin/nvim',
     priority = 150,
-    name = 'catppuccin',
+    name     = 'catppuccin',
     config = function()
       require('catppuccin').setup {
         background = {
           light = 'latte',
-          dark = 'mocha',
+          dark  = 'mocha',
         },
         color_overrides = {
           latte = {
             rosewater = '#c14a4a',
-            flamingo = '#c14a4a',
-            red = '#c14a4a',
-            maroon = '#c14a4a',
-            pink = '#945e80',
-            mauve = '#945e80',
-            peach = '#c35e0a',
-            yellow = '#b47109',
-            green = '#6c782e',
-            teal = '#4c7a5d',
-            sky = '#4c7a5d',
-            sapphire = '#4c7a5d',
-            blue = '#45707a',
-            lavender = '#45707a',
-            text = '#654735',
-            subtext1 = '#73503c',
-            subtext0 = '#805942',
-            overlay2 = '#8c6249',
-            overlay1 = '#8c856d',
-            overlay0 = '#a69d81',
-            surface2 = '#bfb695',
-            surface1 = '#d1c7a3',
-            surface0 = '#e3dec3',
-            base = '#f9f5d7',
-            mantle = '#f0ebce',
-            crust = '#e8e3c8',
+            flamingo  = '#c14a4a',
+            red       = '#c14a4a',
+            maroon    = '#c14a4a',
+            pink      = '#945e80',
+            mauve     = '#945e80',
+            peach     = '#c35e0a',
+            yellow    = '#b47109',
+            green     = '#6c782e',
+            teal      = '#4c7a5d',
+            sky       = '#4c7a5d',
+            sapphire  = '#4c7a5d',
+            blue      = '#45707a',
+            lavender  = '#45707a',
+            text      = '#654735',
+            subtext1  = '#73503c',
+            subtext0  = '#805942',
+            overlay2  = '#8c6249',
+            overlay1  = '#8c856d',
+            overlay0  = '#a69d81',
+            surface2  = '#bfb695',
+            surface1  = '#d1c7a3',
+            surface0  = '#e3dec3',
+            base      = '#f9f5d7',
+            mantle    = '#f0ebce',
+            crust     = '#e8e3c8',
           },
           mocha = {
             rosewater = '#ea6962',
-            flamingo = '#ea6962',
-            red = '#ea6962',
-            maroon = '#ea6962',
-            pink = '#d3869b',
-            mauve = '#d3869b',
-            peach = '#e78a4e',
-            yellow = '#d8a657',
-            green = '#a9b665',
-            teal = '#89b482',
-            sky = '#89b482',
-            sapphire = '#89b482',
-            blue = '#7daea3',
-            lavender = '#7daea3',
-            text = '#ebdbb2',
-            subtext1 = '#d5c4a1',
-            subtext0 = '#bdae93',
-            overlay2 = '#a89984',
-            overlay1 = '#928374',
-            overlay0 = '#595959',
-            surface2 = '#4d4d4d',
-            surface1 = '#404040',
-            surface0 = '#292929',
-            base = '#1d2021',
-            mantle = '#191b1c',
-            crust = '#141617',
+            flamingo  = '#ea6962',
+            red       = '#ea6962',
+            maroon    = '#ea6962',
+            pink      = '#d3869b',
+            mauve     = '#d3869b',
+            peach     = '#e78a4e',
+            yellow    = '#d8a657',
+            green     = '#a9b665',
+            teal      = '#89b482',
+            sky       = '#89b482',
+            sapphire  = '#89b482',
+            blue      = '#7daea3',
+            lavender  = '#7daea3',
+            text      = '#ebdbb2',
+            subtext1  = '#d5c4a1',
+            subtext0  = '#bdae93',
+            overlay2  = '#a89984',
+            overlay1  = '#928374',
+            overlay0  = '#595959',
+            surface2  = '#4d4d4d',
+            surface1  = '#404040',
+            surface0  = '#292929',
+            base      = '#1d2021',
+            mantle    = '#191b1c',
+            crust     = '#141617',
           },
         },
         transparent_background = false,
-        show_end_of_buffer = false,
-        integration_default = false,
-        no_bold = true,
-        no_italic = true,
-        no_underline = true,
+        show_end_of_buffer     = false,
+        integration_default    = false,
+        no_bold                = true,
+        no_italic              = true,
+        no_underline           = true,
         integrations = {
           blink_cmp = {
             style = 'bordered',
@@ -133,16 +132,16 @@ return {
           native_lsp = { enabled = true, inlay_hints = { background = true } },
           -- neogit = true,
           -- neotree = true,
-          semantic_tokens = true,
-          treesitter = true,
+          semantic_tokens    = true,
+          treesitter         = true,
           treesitter_context = true,
           -- vimwiki = true,
           which_key = true,
           -- aerial = true,
-          fidget = true,
-          mason = true,
+          fidget  = true,
+          mason   = true,
           neotest = true,
-          dap_ui = true,
+          dap_ui  = true,
           -- telescope = {
           --   enabled = true,
           --   style = "nvchad",
@@ -151,17 +150,18 @@ return {
         highlight_overrides = {
           all = function(colors)
             return {
+
               -- Completion menu styling
-              Pmenu = { bg = colors.mantle, fg = colors.text },
-              PmenuSel = { bg = colors.surface0, fg = colors.text },
-              PmenuSbar = { bg = colors.surface0 },
+              Pmenu      = { bg = colors.mantle, fg = colors.text },
+              PmenuSel   = { bg = colors.surface0, fg = colors.text },
+              PmenuSbar  = { bg = colors.surface0 },
               PmenuThumb = { bg = colors.surface2 },
               PmenuExtra = { bg = colors.mantle, fg = colors.subtext1 },
 
               -- Floating windows
               NormalFloat = { bg = colors.mantle },
               FloatBorder = { bg = colors.mantle, fg = colors.surface2 },
-              FloatTitle = { bg = colors.mantle, fg = colors.text },
+              FloatTitle  = { bg = colors.mantle, fg = colors.text },
 
               -- Blink.cmp specific highlighting
               BlinkCmpMenu = { bg = colors.mantle, fg = colors.text },
@@ -198,47 +198,47 @@ return {
               SnacksPickerListTitle = { fg = colors.base, bg = colors.base },
 
               -- Additional picker elements
-              SnacksPickerDir = { fg = colors.blue },
-              SnacksPickerFile = { fg = colors.text },
-              SnacksPickerMatch = { fg = colors.peach, bold = true },
-              SnacksPickerCursor = { bg = colors.surface0, fg = colors.text },
+              SnacksPickerDir      = { fg = colors.blue },
+              SnacksPickerFile     = { fg = colors.text },
+              SnacksPickerMatch    = { fg = colors.peach, bold = true },
+              SnacksPickerCursor   = { bg = colors.surface0, fg = colors.text },
               SnacksPickerSelected = { bg = colors.surface0, fg = colors.text },
-              SnacksPickerIcon = { fg = colors.blue },
-              SnacksPickerSource = { fg = colors.overlay1 },
-              SnacksPickerCount = { fg = colors.overlay1 },
-              SnacksPickerFooter = { fg = colors.overlay1 },
-              SnacksPickerHeader = { fg = colors.text, bold = true },
-              SnacksPickerSpecial = { fg = colors.peach },
-              SnacksPickerIndent = { fg = colors.surface1 },
-              SnacksPickerMulti = { fg = colors.peach },
-              SnacksPickerTitle = { fg = colors.text, bold = true },
-              SnacksPickerPrompt = { fg = colors.text },
+              SnacksPickerIcon     = { fg = colors.blue },
+              SnacksPickerSource   = { fg = colors.overlay1 },
+              SnacksPickerCount    = { fg = colors.overlay1 },
+              SnacksPickerFooter   = { fg = colors.overlay1 },
+              SnacksPickerHeader   = { fg = colors.text, bold = true },
+              SnacksPickerSpecial  = { fg = colors.peach },
+              SnacksPickerIndent   = { fg = colors.surface1 },
+              SnacksPickerMulti    = { fg = colors.peach },
+              SnacksPickerTitle    = { fg = colors.text, bold = true },
+              SnacksPickerPrompt   = { fg = colors.text },
 
               -- Snacks core components
-              SnacksNotifierNormal = { bg = colors.mantle, fg = colors.text },
-              SnacksNotifierBorder = { bg = colors.mantle, fg = colors.surface2 },
-              SnacksNotifierTitle = { bg = colors.mantle, fg = colors.text, bold = true },
-              SnacksNotifierIcon = { bg = colors.mantle, fg = colors.blue },
-              SnacksNotifierIconInfo = { bg = colors.mantle, fg = colors.blue },
-              SnacksNotifierIconWarn = { bg = colors.mantle, fg = colors.yellow },
+              SnacksNotifierNormal    = { bg = colors.mantle, fg = colors.text },
+              SnacksNotifierBorder    = { bg = colors.mantle, fg = colors.surface2 },
+              SnacksNotifierTitle     = { bg = colors.mantle, fg = colors.text, bold = true },
+              SnacksNotifierIcon      = { bg = colors.mantle, fg = colors.blue },
+              SnacksNotifierIconInfo  = { bg = colors.mantle, fg = colors.blue },
+              SnacksNotifierIconWarn  = { bg = colors.mantle, fg = colors.yellow },
               SnacksNotifierIconError = { bg = colors.mantle, fg = colors.red },
 
               -- Snacks Dashboard
-              SnacksDashboardNormal = { bg = colors.base, fg = colors.text },
-              SnacksDashboardDesc = { bg = colors.base, fg = colors.subtext1 },
-              SnacksDashboardFile = { bg = colors.base, fg = colors.text },
-              SnacksDashboardDir = { bg = colors.base, fg = colors.blue },
-              SnacksDashboardFooter = { bg = colors.base, fg = colors.overlay1 },
-              SnacksDashboardHeader = { bg = colors.base, fg = colors.text, bold = true },
-              SnacksDashboardIcon = { bg = colors.base, fg = colors.blue },
-              SnacksDashboardKey = { bg = colors.base, fg = colors.peach },
+              SnacksDashboardNormal   = { bg = colors.base, fg = colors.text },
+              SnacksDashboardDesc     = { bg = colors.base, fg = colors.subtext1 },
+              SnacksDashboardFile     = { bg = colors.base, fg = colors.text },
+              SnacksDashboardDir      = { bg = colors.base, fg = colors.blue },
+              SnacksDashboardFooter   = { bg = colors.base, fg = colors.overlay1 },
+              SnacksDashboardHeader   = { bg = colors.base, fg = colors.text, bold = true },
+              SnacksDashboardIcon     = { bg = colors.base, fg = colors.blue },
+              SnacksDashboardKey      = { bg = colors.base, fg = colors.peach },
               SnacksDashboardTerminal = { bg = colors.base, fg = colors.text },
-              SnacksDashboardSpecial = { bg = colors.base, fg = colors.peach },
+              SnacksDashboardSpecial  = { bg = colors.base, fg = colors.peach },
 
               -- Snacks Terminal
               SnacksTerminalNormal = { bg = colors.mantle, fg = colors.text },
               SnacksTerminalBorder = { bg = colors.mantle, fg = colors.surface2 },
-              SnacksTerminalTitle = { bg = colors.mantle, fg = colors.text, bold = true },
+              SnacksTerminalTitle  = { bg = colors.mantle, fg = colors.text, bold = true },
 
               CmpItemMenu = { fg = colors.surface2 },
               CursorLineNr = { fg = colors.text },
@@ -255,34 +255,34 @@ return {
               IblScope = { fg = colors.overlay0 },
 
               Boolean = { fg = colors.mauve },
-              Number = { fg = colors.mauve },
-              Float = { fg = colors.mauve },
+              Number  = { fg = colors.mauve },
+              Float   = { fg = colors.mauve },
 
-              PreProc = { fg = colors.mauve },
-              PreCondit = { fg = colors.mauve },
-              Include = { fg = colors.mauve },
-              Define = { fg = colors.mauve },
+              PreProc     = { fg = colors.mauve },
+              PreCondit   = { fg = colors.mauve },
+              Include     = { fg = colors.mauve },
+              Define      = { fg = colors.mauve },
               Conditional = { fg = colors.red },
-              Repeat = { fg = colors.red },
-              Keyword = { fg = colors.red },
-              Typedef = { fg = colors.red },
-              Exception = { fg = colors.red },
-              Statement = { fg = colors.red },
+              Repeat      = { fg = colors.red },
+              Keyword     = { fg = colors.red },
+              Typedef     = { fg = colors.red },
+              Exception   = { fg = colors.red },
+              Statement   = { fg = colors.red },
 
-              Error = { fg = colors.red },
+              Error        = { fg = colors.red },
               StorageClass = { fg = colors.peach },
-              Tag = { fg = colors.peach },
-              Label = { fg = colors.peach },
-              Structure = { fg = colors.peach },
-              Operator = { fg = colors.peach },
-              Title = { fg = colors.peach },
-              Special = { fg = colors.yellow },
-              SpecialChar = { fg = colors.yellow },
-              Type = { fg = colors.yellow, style = { 'bold' } },
-              Function = { fg = colors.green, style = { 'bold' } },
-              Delimiter = { fg = colors.subtext1 },
-              Ignore = { fg = colors.subtext1 },
-              Macro = { fg = colors.teal },
+              Tag          = { fg = colors.peach },
+              Label        = { fg = colors.peach },
+              Structure    = { fg = colors.peach },
+              Operator     = { fg = colors.peach },
+              Title        = { fg = colors.peach },
+              Special      = { fg = colors.yellow },
+              SpecialChar  = { fg = colors.yellow },
+              Type         = { fg = colors.yellow, style = { 'bold' } },
+              Function     = { fg = colors.green, style = { 'bold' } },
+              Delimiter    = { fg = colors.subtext1 },
+              Ignore       = { fg = colors.subtext1 },
+              Macro        = { fg = colors.teal },
 
               TSAnnotation = { fg = colors.mauve },
               TSAttribute = { fg = colors.mauve },
@@ -463,9 +463,9 @@ return {
           latte = function(colors)
             return {
               IblIndent = { fg = colors.mantle },
-              IblScope = { fg = colors.surface1 },
+              IblScope  = { fg = colors.surface1 },
 
-              LineNr = { fg = colors.surface1 },
+              LineNr    = { fg = colors.surface1 },
             }
           end,
         },

@@ -1,6 +1,9 @@
+local arrows = require('Icons').arrows
+local vim = vim
 --stylua: ignore start
+
 -- General ====================================================================
-vim.g.mapleader = ' ' -- Use `<Space>` as a leader key
+vim.g.mapleader      = ' ' -- Use `<Space>` as a leader key
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = false
 
@@ -9,7 +12,7 @@ vim.o.mouse       = 'a'            -- Enable mouse
 vim.o.switchbuf   = 'usetab'       -- Use already opened buffers when switching
 vim.o.undofile    = true           -- Enable persistent undo
 
-vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
+-- vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
 
 -- Enable all filetype plugins and syntax
 vim.cmd('filetype plugin indent on')
@@ -19,16 +22,16 @@ if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
 vim.o.breakindent    = true       -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'  -- Add padding for lists (if 'wrap' is set)
 vim.o.colorcolumn    = '+1'       -- Draw column on the right of maximum width
-vim.o.confirm = true
+vim.o.confirm        = true
 vim.o.cursorline     = true       -- Enable current line highlighting
-vim.o.inccommand = 'split'        -- Preview substitutions live, as you type!
+vim.o.inccommand     = 'split'    -- Preview substitutions live, as you type!
 vim.o.linebreak      = true       -- Wrap lines at 'breakat' (if 'wrap' is set)
 vim.o.list           = true       -- Show helpful text indicators
 vim.o.number         = true       -- Show line numbers
 vim.o.pumheight      = 10         -- Make popup menu smaller
 vim.o.relativenumber = true       -- Make line number relative to current line
 vim.o.ruler          = false      -- Don't show cursor coordinates
-vim.o.scrolloff = 10              -- Minimal number of screen lines to keep above and below the cursor.
+vim.o.scrolloff      = 10         -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.shortmess      = 'CFOSWaco' -- Disable some built-in completion messages
 vim.o.showmode       = false      -- Don't show mode in command line
 vim.o.signcolumn     = 'yes'      -- Always show signcolumn (less flicker)
@@ -36,20 +39,34 @@ vim.o.splitbelow     = true       -- Horizontal splits will be below
 vim.o.splitkeep      = 'screen'   -- Reduce scroll during window split
 vim.o.splitright     = true       -- Vertical splits will be to the right
 vim.o.timeoutlen     = 300        -- Decrease mapped sequence wait time
+vim.o.ttimeoutlen    = 10         -- Decrease mapped sequence wait time
 vim.o.updatetime     = 250        -- Decrease update time
 vim.o.wrap           = false      -- Don't visually wrap lines (toggle with \w)
+vim.o.winborder      = 'rounded'
 
 vim.o.cursorlineopt  = 'screenline,number' -- Show cursor line per screen line
 
 -- Special UI symbols
-vim.o.fillchars = 'eob: ,fold:╌'
+-- vim.o.foldlevelstart = 99
+-- vim.wo.foldtext = ''
+vim.opt.fillchars = {
+    eob       = ' ',
+    fold      = ' ',
+    foldclose = arrows.right,
+    foldopen  = arrows.down,
+    foldsep   = ' ',
+    -- foldinner = ' ',
+    msgsep    = '─',
+}
 -- vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:» , trail=·'
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', extends = '…', precedes = '…' }
 
 -- Folds (default behavior; see `:h Folding`)
-vim.o.foldlevel   = 1        -- Fold everything except top level
-vim.o.foldmethod  = 'indent' -- Fold based on indent level
-vim.o.foldnestmax = 10       -- Limit number of fold levels
+vim.o.foldlevel      = 1        -- Fold everything except top level
+vim.o.foldlevelstart = 99
+vim.o.foldcolumn     = '1'
+vim.o.foldmethod     = 'indent' -- Fold based on indent level
+vim.o.foldnestmax    = 10       -- Limit number of fold levels
 
 -- Neovim version specific
 if vim.fn.has('nvim-0.10') == 0 then
@@ -105,7 +122,7 @@ vim.o.spelloptions  = 'camel'    -- Treat camelCase word parts as separate words
 vim.o.tabstop       = 2          -- Show tab as this number of spaces
 vim.o.virtualedit   = 'block'    -- Allow going past end of line in blockwise mode
 
-vim.o.iskeyword = '@,48-57,_,192-255,-' -- Treat dash as `word` textobject part
+vim.o.iskeyword  = '@,48-57,_,192-255,-' -- Treat dash as `word` textobject part
 vim.o.dictionary = vim.fn.stdpath('config') .. '/misc/dict/english.txt' -- Use specific dictionaries
 
 -- Pattern for a start of 'numbered' list (used in `gw`). This reads as
@@ -115,11 +132,11 @@ vim.o.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
 
 -- Built-in completion
 vim.o.complete    = '.,w,b,kspell'     -- Use less sources
-vim.o.completeopt = 'menuone,noselect' -- Use custom behavior
+-- vim.o.completeopt = 'menuone,noselect' -- Use custom behavior
 
-if vim.fn.has('nvim-0.11') == 1 then
-  vim.o.completeopt = 'menuone,noselect,fuzzy,nosort'
-end
+-- if vim.fn.has('nvim-0.11') == 1 then
+--   vim.o.completeopt = 'menuone,noselect,fuzzy,nosort'
+-- end
 
 -- Cyrillic keyboard layout
 local langmap_keys = {
@@ -137,23 +154,23 @@ vim.o.langmap = table.concat(langmap_keys, ',')
 -- _G.Config.new_autocmd('FileType', '*', ensure_fo, "Proper 'formatoptions'")
 
 -- Diagnostics ================================================================
-local diagnostic_opts = {
-  -- Show signs on top of any other sign, but only for warnings and errors
-  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
-
-  -- Show all diagnostics as underline (for their meessages type `<Leader>ld`)
-  underline = { severity = { min = 'HINT', max = 'ERROR' } },
-
-  -- Show more details immediately only for errors at current line end
-  virtual_lines = false,
-  virtual_text = {
-    current_line = true,
-    severity = { min = 'ERROR', max = 'ERROR' },
-  },
-
-  -- Don't update diagnostics when typing
-  update_in_insert = false,
-}
+-- local diagnostic_opts = {
+--   -- Show signs on top of any other sign, but only for warnings and errors
+--   signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
+--
+--   -- Show all diagnostics as underline (for their meessages type `<Leader>ld`)
+--   underline = { severity = { min = 'HINT', max = 'ERROR' } },
+--
+--   -- Show more details immediately only for errors at current line end
+--   virtual_lines = false,
+--   virtual_text = {
+--     current_line = true,
+--     severity = { min = 'ERROR', max = 'ERROR' },
+--   },
+--
+--   -- Don't update diagnostics when typing
+--   update_in_insert = false,
+-- }
 
 -- Use `later()` to avoid sourcing `vim.diagnostic` on startup
 -- MiniDeps.later(function() vim.diagnostic.config(diagnostic_opts) end)
@@ -239,9 +256,9 @@ end)
 -- vim.o.wrap = false
 
 -- Set terminal shell to powershell
-vim.o.shell = 'pwsh.exe'
+vim.o.shell        = 'pwsh.exe'
 vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command $PSStyle.OutputRendering = 'PlainText';"
-vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-vim.o.shellquote = ''
-vim.o.shellxquote = ''
+vim.o.shellredir   = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+vim.o.shellpipe    = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+vim.o.shellquote   = ''
+vim.o.shellxquote  = ''
