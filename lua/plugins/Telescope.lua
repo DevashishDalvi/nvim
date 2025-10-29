@@ -52,6 +52,24 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
       --   },
       -- },
+      -- NOTE: Inspiration from https://github.com/SylvanFranklin
+              -- defaults = {
+        --   borderchar = { '', '', '', '', '', '', '', '' },
+        --   mappings = {
+        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        --   },
+        --   -- NOTE: set all the telescope mode tp start in normal mode instead of the default insert mode
+        --   -- initial_mode = 'normal',
+        --   path_displays = 'smart',
+        --   sorting_strategy = 'ascending',
+        --   layout_config = {
+        --     -- border = 'single',
+        --     height = 400,
+        --     width = 400,
+        --     prompt_position = 'top',
+        --     preview_cutoff = 40,
+        --   },
+        -- },
       -- pickers = {}
       extensions = {
         ['ui-select'] = {
