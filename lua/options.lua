@@ -22,6 +22,12 @@ if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
 vim.o.breakindent    = true       -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'  -- Add padding for lists (if 'wrap' is set)
 vim.o.colorcolumn    = '+1'       -- Draw column on the right of maximum width
+vim.o.textwidth      = 80
+
+-- For highlighting characters over 80 columns in all files
+vim.api.nvim_set_hl(0, "OverLength", { ctermbg = "red", bg = "#592929" })
+vim.fn.matchadd("OverLength", "\\%>80v.\\+")
+
 vim.o.confirm        = true
 vim.o.cursorline     = true       -- Enable current line highlighting
 vim.o.inccommand     = 'split'    -- Preview substitutions live, as you type!

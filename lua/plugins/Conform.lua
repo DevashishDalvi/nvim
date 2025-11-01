@@ -31,6 +31,8 @@ return { -- Autoformat
     formatters_by_ft = {
       lua = { 'stylua' },
       python = { 'ruff', 'black' },
+      c = { 'clang-format', 'astyle' },
+      cpp = { 'clang-format', 'astyle' },
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },

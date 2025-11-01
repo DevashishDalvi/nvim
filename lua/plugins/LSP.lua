@@ -117,14 +117,14 @@ return {
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            buffer   = event.buf,
-            group    = highlight_augroup,
+            buffer = event.buf,
+            group = highlight_augroup,
             callback = vim.lsp.buf.document_highlight,
           })
 
           vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            buffer   = event.buf,
-            group    = highlight_augroup,
+            buffer = event.buf,
+            group = highlight_augroup,
             callback = vim.lsp.buf.clear_references,
           })
 
@@ -202,9 +202,9 @@ return {
       signs = vim.g.have_nerd_font and {
         text = {
           [vim.diagnostic.severity.ERROR] = '󰅚 ',
-          [vim.diagnostic.severity.WARN]  = '󰀪 ',
-          [vim.diagnostic.severity.INFO]  = '󰋽 ',
-          [vim.diagnostic.severity.HINT]  = '󰌶 ',
+          [vim.diagnostic.severity.WARN] = '󰀪 ',
+          [vim.diagnostic.severity.INFO] = '󰋽 ',
+          [vim.diagnostic.severity.HINT] = '󰌶 ',
         },
       } or {},
       virtual_text = {
@@ -214,9 +214,9 @@ return {
         format = function(diagnostic)
           local diagnostic_message = {
             [vim.diagnostic.severity.ERROR] = diagnostic.message,
-            [vim.diagnostic.severity.WARN]  = diagnostic.message,
-            [vim.diagnostic.severity.INFO]  = diagnostic.message,
-            [vim.diagnostic.severity.HINT]  = diagnostic.message,
+            [vim.diagnostic.severity.WARN] = diagnostic.message,
+            [vim.diagnostic.severity.INFO] = diagnostic.message,
+            [vim.diagnostic.severity.HINT] = diagnostic.message,
           }
           return diagnostic_message[diagnostic.severity]
         end,
@@ -245,7 +245,7 @@ return {
         python = {
           analysis = {
             autoImportCompletions = true,
-            typeCheckingMode      = 'standard',
+            typeCheckingMode = 'standard',
           },
         },
       },
