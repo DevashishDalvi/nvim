@@ -30,14 +30,18 @@ map('v', '<C-_>', 'gc', { desc = 'Comments line block', remap = true })
 
 -- Show diagnostics automatically when navigating
 vim.keymap.set('n', ']d', function()
-  vim.diagnostic.goto_next()
+  -- goto_next is depricated
+  -- vim.diagnostic.goto_next()
+  vim.diagnostic.jump { count = 1 }
   vim.defer_fn(function()
     vim.diagnostic.open_float(nil, { focus = false })
   end, 100)
 end, { desc = 'Go to next diagnostic and show float' })
 
 vim.keymap.set('n', '[d', function()
-  vim.diagnostic.goto_prev()
+  -- goto_prev is depricated
+  -- vim.diagnostic.goto_prev()
+  vim.diagnostic.jump { count = -1 }
   vim.defer_fn(function()
     vim.diagnostic.open_float(nil, { focus = false })
   end, 100)
