@@ -84,7 +84,67 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
-    vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+    local actions = require 'telescope.actions'
+    local action_state = require 'telescope.actions.state'
+
+    -- Function: open selected help topic in a floating window
+    local function open_help_in_float(prompt_bufnr)
+      local entry = action_state.get_selected_entry()
+      actions.close(prompt_bufnr)
+
+      -- Remember current window (so we can close the split that :help opens)
+      local prev_win = vim.api.nvim_get_current_win()
+
+      -- Open help normally (creates help buffer and window)
+      vim.cmd('help ' .. entry.value)
+
+      -- Grab help buffer + window
+      local help_win = vim.api.nvim_get_current_win()
+      local help_buf = vim.api.nvim_win_get_buf(help_win)
+
+      -- Create floating window
+      local width = math.floor(vim.o.columns * 0.8)
+      local height = math.floor(vim.o.lines * 0.8)
+      local row = math.floor((vim.o.lines - height) / 2)
+      local col = math.floor((vim.o.columns - width) / 2)
+
+      local float_opts = {
+        relative = 'editor',
+        width = width,
+        height = height,
+        row = row,
+        col = col,
+        border = 'rounded',
+        style = 'minimal',
+      }
+
+      local float_win = vim.api.nvim_open_win(help_buf, true, float_opts)
+
+      -- Close the original split help window
+      if help_win ~= float_win and vim.api.nvim_win_is_valid(help_win) then
+        pcall(vim.api.nvim_win_close, help_win, true)
+      end
+
+      -- Optional: allow closing with q
+      vim.keymap.set('n', 'q', function()
+        if vim.api.nvim_win_is_valid(float_win) then
+          vim.api.nvim_win_close(float_win, true)
+        end
+      end, { buffer = help_buf, silent = true })
+    end
+
+    -- Use Telescope's help_tags picker normally
+    vim.keymap.set('n', '<leader>sh', function()
+      builtin.help_tags {
+        attach_mappings = function(_, map)
+          map('i', '<CR>', open_help_in_float)
+          map('n', '<CR>', open_help_in_float)
+          return true
+        end,
+      }
+    end, { desc = '[S]earch [H]elp (float)' })
+    
+    --vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
