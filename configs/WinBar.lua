@@ -1,6 +1,5 @@
 local folder_icon = require('configs.Icons').symbol_kinds.Folder
 
-local vim = vim
 local M   = {}
 
 --- Window bar that shows the current file path (in a fancy way).

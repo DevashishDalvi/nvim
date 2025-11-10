@@ -1,5 +1,4 @@
 -- [[ Basic Keymaps ]]
-local vim = vim
 --  See `:help vim.keymap.set()`
 local function map(mode, key, func, opts)
   local _opts = opts or { noremap = true, silent = true }

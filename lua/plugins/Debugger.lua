@@ -26,6 +26,9 @@ return {
 
     -- python dap: https://github.com/mfussenegger/nvim-dap-python
     'mfussenegger/nvim-dap-python',
+
+    -- inline virtual text: https://github.com/theHamsta/nvim-dap-virtual-text
+    'theHamsta/nvim-dap-virtual-text'
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!

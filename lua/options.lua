@@ -1,5 +1,4 @@
 local arrows = require('Icons').arrows
-local vim = vim
 --stylua: ignore start
 
 -- General ====================================================================
