@@ -119,3 +119,10 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dctl",
+  callback = function()
+    vim.treesitter.start(0, "c")
+  end,
+})
