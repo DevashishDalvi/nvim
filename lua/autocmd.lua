@@ -126,3 +126,35 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.treesitter.start(0, "c")
   end,
 })
+
+local dctl_template = [[
+__DEVICE__ float3 transform(
+    int width, int height, int x, int y,
+    float r, float g, float b)
+{
+    float3 rgb = make_float3(r, g, b);
+
+    // transform
+
+    return rgb;
+}
+]]
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dctl",
+  callback = function()
+    vim.keymap.set("n", "<leader>dt", function()
+      vim.api.nvim_put(vim.split(dctl_template, "\n"), "l", true, true)
+    end, { buffer = true, desc = "Insert DCTL transform scaffold" })
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = "*.dctl",
+  callback = function()
+    vim.cmd("normal! i")
+    require("luasnip").snip_expand(
+      require("luasnip").get_snippets("dctl")[1]
+    )
+  end,
+})
