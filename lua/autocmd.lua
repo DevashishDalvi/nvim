@@ -83,3 +83,23 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     vim.cmd 'startinsert'
   end,
 })
+
+-- configuration for davinci resolve dctl dev
+-- 1. Enable autoread locally for .dctl files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.dctl",
+  callback = function()
+    vim.opt_local.autoread = true
+  end,
+})
+
+-- 2. Trigger a check for external changes when focusing Neovim
+-- This ensures that if you edit in Resolve, Neovim catches it immediately
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  pattern = "*.dctl",
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd("checktime")
+    end
+  end,
+})
