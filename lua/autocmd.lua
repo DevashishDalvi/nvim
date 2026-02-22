@@ -83,3 +83,39 @@ vim.api.nvim_create_autocmd('FileType', {
 --     vim.cmd 'startinsert'
 --   end,
 -- })
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = { '*.c', '*.cpp' },
+  callback = function()
+    local file = vim.fn.shellescape(vim.fn.expand '%:p')
+    local output = vim.fn.shellescape(vim.fn.expand '%:t:r')
+    local compiler = vim.bo.filetype == 'cpp' and 'g++' or 'gcc'
+
+    -- Safer compile+run command
+    local cmd = string.format('%s %s -o %s && %s; rm -f %s', compiler, file, output, output, output)
+
+    -- Open terminal window
+    vim.cmd 'botright split | resize 10'
+    vim.cmd('terminal ' .. cmd)
+    vim.cmd 'startinsert'
+  end,
+})
+
+-- configuration for davinci resolve dctl dev
+-- 1. Enable autoread locally for .dctl files
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.dctl',
+  callback = function()
+    vim.opt_local.autoread = true
+  end,
+})
+
+-- 2. Trigger a check for external changes when focusing Neovim
+-- This ensures that if you edit in Resolve, Neovim catches it immediately
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
+  pattern = '*.dctl',
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd 'checktime'
+    end
+  end,
+})
