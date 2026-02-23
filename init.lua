@@ -1,7 +1,8 @@
-package.path = package.path .. ';' .. vim.fn.stdpath 'config' .. '/configs/?.lua'
+package.path = package.path .. ';' .. vim.fn.stdpath 'config' .. '/config/?.lua'
 require 'options'
 require 'keymap'
 require 'autocmd'
+require 'config.dctl'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
